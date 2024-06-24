@@ -1,8 +1,5 @@
 # Contas a Pagar
 ## Desafio Backend
-
-[![Build Status](https://travis-ci.org/condessalovelace/mavenquickstart.svg?branch=master)](https://travis-ci.org/condessalovelace/mavenquickstart) ![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=br.com%3Amavenquickstart&metric=alert_status)
-
 ### Tecnologias Utilizadas
 - Java 11
 - Spring Boot
@@ -32,7 +29,7 @@ mvn spring-boot:run
 - [Collection Postman](https://github.com/samoellaureano/Contas_a_pagar/blob/master/Desafio%20Backend.postman_collection.json)
 
 ### Licença
-Distribuido sob a licença MIT License. Veja `LICENSE` para mais informações.
+Distribuído sob a licença MIT License. Veja `LICENSE` para mais informações.
 
 ### Autor
 Desenvolvido por [Samoel Laureano Angélica](https://github.com/samoellaureano)

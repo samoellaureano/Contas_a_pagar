@@ -12,8 +12,9 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -44,14 +45,14 @@ public class ContaService
 		return contaRepository.save(conta);
 	}
 
-	public PageImpl<Conta> findAll(int page, int size)
+	public Page<Conta> findAll(int page, int size)
 	{
 		Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-		PageImpl<Conta> contas = contaRepository.findAll(pageable);
+		Page<Conta> contas = contaRepository.findAll(pageable);
 		return contas;
 	}
 
-	public PageImpl<Conta> findAllContasAPagar(LocalDate dataVencimento, String descricao, int page,
+	public Page<Conta> findAllContasAPagar(LocalDate dataVencimento, String descricao, int page,
 		int size)
 	{
 		Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
@@ -60,9 +61,9 @@ public class ContaService
 			dataVencimento, descricao, situacao, pageable);
 	}
 
-	public Conta findContaById(long id)
+	public Optional<Conta> findById(long id)
 	{
-		return contaRepository.findContaById(id);
+		return contaRepository.findById(id);
 	}
 
 	public List<Conta> importCSV(MultipartFile file)

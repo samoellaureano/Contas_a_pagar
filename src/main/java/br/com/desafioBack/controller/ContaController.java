@@ -7,11 +7,11 @@ import br.com.desafioBack.services.ContaService;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,7 +33,7 @@ public class ContaController
 	}
 
 	@GetMapping
-	public ResponseEntity<PageImpl<Conta>> findAll(@RequestParam(defaultValue = "0") int page,
+	public ResponseEntity<Page<Conta>> findAll(@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "10") int size)
 	{
 		logger.info("Listando todas as contas");
@@ -84,10 +84,10 @@ public class ContaController
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Conta> findContaById(@PathVariable Long id)
+	public ResponseEntity<Optional<Conta>> findContaById(@PathVariable Long id)
 	{
 		logger.info("Buscando a conta com id {}", id);
-		return ResponseEntity.ok(contaService.findContaById(id));
+		return ResponseEntity.ok(contaService.findById(id));
 	}
 
 	@GetMapping("/valorTotalPago")

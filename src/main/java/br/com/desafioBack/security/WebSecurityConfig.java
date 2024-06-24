@@ -14,10 +14,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception
 	{
-		httpSecurity.csrf().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/v2/api-docs")
-			.permitAll().antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
-			.antMatchers(HttpMethod.GET, "/swagger-resources/**").permitAll().anyRequest()
-			.authenticated().and().httpBasic();
+		httpSecurity.csrf().disable().authorizeRequests()
+			.antMatchers(HttpMethod.GET, "/v2/api-docs").authenticated()
+			.antMatchers(HttpMethod.GET, "/swagger-ui.html").authenticated()
+			.antMatchers(HttpMethod.GET, "/swagger-resources/**").authenticated()
+			.anyRequest()
+			.authenticated()
+			.and()
+			.httpBasic();
 	}
 
 	@Override
