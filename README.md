@@ -29,7 +29,7 @@ mvn spring-boot:run
 ```
 
 ### Collection Postman
-- [Collection Postman](https://www.getpostman.com/collections/1b3b3b3b3b3b3b3b3b3b)
+- [Collection Postman](https://github.com/samoellaureano/Contas_a_pagar/blob/master/Desafio%20Backend.postman_collection.json)
 
 ### Licença
 Distribuido sob a licença MIT License. Veja `LICENSE` para mais informações.

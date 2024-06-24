@@ -2,6 +2,7 @@ package br.com.desafioBack.entity;
 
 import br.com.desafioBack.repository.Situacao;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,5 +30,8 @@ public class Conta
 		return "Conta{" + "id=" + id + ", dataVencimento=" + dataVencimento + ", dataPagamento="
 			+ dataPagamento + ", valor=" + valor + ", descricao='" + descricao + '\'' + ", situacao='"
 			+ situacao + '\'' + '}';
+	}
+	public BigDecimal getValor() {
+		return valor.setScale(2, RoundingMode.HALF_UP);
 	}
 }
