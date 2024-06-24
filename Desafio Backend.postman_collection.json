@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "32ec9fb1-b01e-4f0d-8612-b975b3b9cdfa",
+		"name": "Desafio Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6644930"
+	},
+	"item": [
+		{
+			"name": "Nova Conta",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dXNlcjphNmU1Yjc1Zi00ODQxLTRjOTAtYjBiMi0yYWUzYTI5ODBkNjE="
+					},
+					{
+						"key": "Cookie",
+						"value": "JSESSIONID=4393B6687BAE84437B7565CCDCDE7C18"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dataVencimento\": \"2021-01-01\",\r\n    \"dataPagamento\": \"2021-01-01\",\r\n    \"valor\": 100.00,\r\n    \"descricao\": \"Conta de luz\",\r\n    \"situacao\": \"PENDENTE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/contas"
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta ID",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/contas/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Conta",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"dataVencimento\": \"2024-01-02\",\r\n    \"dataPagamento\": \"2024-01-02\",\r\n    \"valor\": 100.00,\r\n    \"descricao\": \"Conta de luz\",\r\n    \"situacao\": \"PAGO\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/contas?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contas"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Situação",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/plain"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/contas?id=1&situacao=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contas"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						},
+						{
+							"key": "situacao",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta Filtro Des, Venc",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/contas/contasAPagar?page=0&size=60&descricao=Teste&dataVencimento=2024-07-30",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contas",
+						"contasAPagar"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "60"
+						},
+						{
+							"key": "descricao",
+							"value": "Teste"
+						},
+						{
+							"key": "dataVencimento",
+							"value": "2024-07-30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Import",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/PROJETOS_PESSOAIS/DesafioBack/ImportContas.csv"
+						}
+					]
+				},
+				"url": "http://localhost:8080/api/contas/import"
+			},
+			"response": []
+		},
+		{
+			"name": "Contas ALL",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/contas?page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contas"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Valor Pago / Periodo",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/contas/valorTotalPago?dataPagamentoInicial=2024-01-01&dataPagamentoFinal=2024-12-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"contas",
+						"valorTotalPago"
+					],
+					"query": [
+						{
+							"key": "dataPagamentoInicial",
+							"value": "2024-01-01"
+						},
+						{
+							"key": "dataPagamentoFinal",
+							"value": "2024-12-31"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
