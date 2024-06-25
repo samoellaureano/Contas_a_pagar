@@ -32,4 +32,4 @@ mvn spring-boot:run
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ### Autor
-Development by [Samoel Laureano Angélica](
+Development by [Samoel Laureano Angélica](https://www.linkedin.com/in/samoellaureano/)
