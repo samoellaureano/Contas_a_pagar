@@ -1,6 +1,6 @@
 package br.com.desafioBack.config;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +29,8 @@ public class SwaggerConfig
 			.globalResponseMessage(RequestMethod.POST, responseMessageForPOST())
 			.globalResponseMessage(RequestMethod.PUT, responseMessageForPUT())
 			.globalResponseMessage(RequestMethod.PATCH, responseMessageForPATCH())
-			.securityContexts(Arrays.asList(securityContext())).apiInfo(apiInfo())
-			.securitySchemes(Arrays.asList(apiKey())).tags(new Tag("Contas", "Gerenciamento de contas"));
+			.securityContexts(Collections.singletonList(securityContext())).apiInfo(apiInfo())
+			.securitySchemes(List.of(apiKey())).tags(new Tag("Contas", "Gerenciamento de contas"));
 	}
 
 	private ApiInfo apiInfo()
@@ -44,24 +44,25 @@ public class SwaggerConfig
 
 	private List<ResponseMessage> responseMessageForGET()
 	{
-		return Arrays.asList(
+		return Collections.singletonList(
 			new ResponseMessageBuilder().code(500).message("Internal Server Error").build());
 	}
 
 	private List<ResponseMessage> responseMessageForPOST()
 	{
-		return Arrays.asList(
+		return Collections.singletonList(
 			new ResponseMessageBuilder().code(500).message("Internal Server Error").build());
 	}
 
 	private List<ResponseMessage> responseMessageForPUT()
 	{
-		return Arrays.asList(new ResponseMessageBuilder().code(500).message("Error to update").build());
+		return Collections.singletonList(
+			new ResponseMessageBuilder().code(500).message("Error to update").build());
 	}
 
 	private List<ResponseMessage> responseMessageForPATCH()
 	{
-		return Arrays.asList(
+		return Collections.singletonList(
 			new ResponseMessageBuilder().code(500).message("Error to change proprietiers").build());
 	}
 
@@ -81,6 +82,6 @@ public class SwaggerConfig
 		AuthorizationScope authorizationScope = new AuthorizationScope("ADMIN", "accessEverything");
 		AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
 		authorizationScopes[0] = authorizationScope;
-		return Arrays.asList(new SecurityReference("Token Access", authorizationScopes));
+		return List.of(new SecurityReference("Token Access", authorizationScopes));
 	}
 }

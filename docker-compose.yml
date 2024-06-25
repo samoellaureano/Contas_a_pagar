@@ -5,7 +5,7 @@ services:
     image: postgres:13
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: senha
+      POSTGRES_PASSWORD: password
       POSTGRES_DB: desafio
     ports:
       - "5432:5432"
@@ -19,4 +19,4 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/desafio
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: senha
+      SPRING_DATASOURCE_PASSWORD: password

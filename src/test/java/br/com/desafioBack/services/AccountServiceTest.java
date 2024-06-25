@@ -1,4 +1,4 @@
-package br.com.desafioBack;
+package br.com.desafioBack.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -6,10 +6,10 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import br.com.desafioBack.entity.Conta;
-import br.com.desafioBack.repository.ContaRepository;
-import br.com.desafioBack.repository.Situacao;
-import br.com.desafioBack.services.ContaService;
+import br.com.desafioBack._shared.AccountTestUtil;
+import br.com.desafioBack.entity.Account;
+import br.com.desafioBack.repository.AccountRepository;
+import br.com.desafioBack.repository.Situation;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,30 +22,30 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-class ContaServiceTest
+class AccountServiceTest
 {
 
 	@InjectMocks
-	private ContaService service;
+	private AccountService service;
 
 	@Mock
-	private ContaRepository repository;
+	private AccountRepository repository;
 
-	private Conta entity;
+	private Account entity;
 
 	@BeforeEach
 	public void setUp()
 	{
-		entity = new ContaTesteUtil().createConta();
+		entity = new AccountTestUtil().createAccount();
 	}
 
 	@Test
 	void findByIdTest()
 	{
 		when(repository.findById(1L)).thenReturn(Optional.of(entity));
-		Optional<Conta> conta = service.findById(1L);
+		Optional<Account> account = service.findById(1L);
 		verify(repository).findById(anyLong());
-		assertEquals(conta.get(), entity);
+		assertEquals(account.get(), entity);
 	}
 
 	@Test
@@ -53,28 +53,28 @@ class ContaServiceTest
 	{
 		when(repository.findById(1L)).thenReturn(Optional.of(entity));
 		when(repository.save(entity)).thenReturn(entity);
-		Conta conta = service.changeStatus(1L, Situacao.PAGO);
+		Account account = service.changeStatus(1L, Situation.PAID);
 		verify(repository).findById(anyLong());
 		verify(repository).save(entity);
-		assertEquals(conta.getSituacao(), Situacao.PAGO);
+		assertEquals(Situation.PAID, account.getSituation());
 	}
 
 	@Test
 	void saveTest()
 	{
 		when(repository.save(entity)).thenReturn(entity);
-		Conta conta = service.save(entity);
+		Account account = service.save(entity);
 		verify(repository).save(entity);
-		assertEquals(conta, entity);
+		assertEquals(account, entity);
 	}
 
 	@Test
 	void updateTest()
 	{
 		when(repository.save(entity)).thenReturn(entity);
-		Conta conta = service.update(entity);
+		Account account = service.update(entity);
 		verify(repository).save(entity);
-		assertEquals(conta, entity);
+		assertEquals(account, entity);
 	}
 
 	@Test
@@ -88,23 +88,21 @@ class ContaServiceTest
 	@Test
 	void findAllContasAPagarTest()
 	{
-		when(repository.findAllByDataVencimentoBeforeAndDescricaoContainingIgnoreCaseAndSituacaoEquals(
-			any(), any(), any(), any(Pageable.class))).thenReturn(Page.empty());
-		service.findAllContasAPagar(entity.getDataVencimento(), entity.getDescricao(), 0, 10);
-		verify(
-			repository).findAllByDataVencimentoBeforeAndDescricaoContainingIgnoreCaseAndSituacaoEquals(
+		when(repository.findAllByDueDateBeforeAndDescriptionContainingIgnoreCaseAndSituationEquals(any(),
+			any(), any(), any(Pageable.class))).thenReturn(Page.empty());
+		service.findAllContasAPagar(entity.getDueDate(), entity.getDescription(), 0, 10);
+		verify(repository).findAllByDueDateBeforeAndDescriptionContainingIgnoreCaseAndSituationEquals(
 			any(), any(), any(), any(Pageable.class));
 	}
 
 	@Test
-	void findValorTotalPagoTest()
+	void findValueAmountPaidTest()
 	{
-		when(
-			repository.findAllBySituacaoEqualsAndDataPagamentoIsAfterAndDataPagamentoBefore(any(), any(),
-				any())).thenReturn(List.of(entity));
-		service.findValorTotalPago(entity.getDataPagamento().toString(),
-			entity.getDataPagamento().toString());
-		verify(repository).findAllBySituacaoEqualsAndDataPagamentoIsAfterAndDataPagamentoBefore(any(),
+		when(repository.findAllBySituationEqualsAndPaymentDateIsAfterAndPaymentDateBefore(any(), any(),
+			any())).thenReturn(List.of(entity));
+		service.findValueAmountPaid(entity.getPaymentDate().toString(),
+			entity.getPaymentDate().toString());
+		verify(repository).findAllBySituationEqualsAndPaymentDateIsAfterAndPaymentDateBefore(any(),
 			any(), any());
 	}
 }

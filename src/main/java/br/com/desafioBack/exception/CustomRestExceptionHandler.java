@@ -16,11 +16,11 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler
 {
 	private static final Logger logger = LoggerFactory.getLogger(CustomRestExceptionHandler.class);
 
-	@ExceptionHandler(SituacaoConversionException.class)
-	protected ResponseEntity<Object> handleSituacaoConversionException(SituacaoConversionException ex,
+	@ExceptionHandler(SituationConversionException.class)
+	protected ResponseEntity<Object> handleSituationConversionException(SituationConversionException ex,
 		WebRequest request)
 	{
-		logger.error("Erro durante o processamento da requisição", ex);
+		logger.error("Error converting situation", ex);
 		ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
 		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
@@ -28,9 +28,9 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request)
 	{
-		logger.error("Erro durante o processamento da requisição", ex);
+		logger.error("Error processing request", ex);
 		ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR,
-			"Ocorreu um erro durante o processamento da requisição.");
+			"Occurred an error while processing the request");
 		return handleExceptionInternal(ex, apiError, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR,
 			request);
 	}

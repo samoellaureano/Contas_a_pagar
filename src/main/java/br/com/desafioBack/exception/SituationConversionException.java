@@ -4,11 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class SituacaoConversionException extends RuntimeException
+public class SituationConversionException extends RuntimeException
 {
 
-	public SituacaoConversionException(String situacao)
+	public SituationConversionException(String situation)
 	{
-		super("Valor inválido para a situação: " + situacao);
+		super("Value not found for situation: " + situation);
 	}
 }
